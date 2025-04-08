@@ -40,10 +40,12 @@
                         elem.textContent = 'Captcha Verification success'
                         elem.style.color = 'green'
                         refreshCaptcha();
+                        document.getElementById('solution').value = ''
                     } else {
                         elem.textContent = 'Invalid captcha'
                         elem.style.color = 'red'
                         refreshCaptcha();
+                        document.getElementById('solution').value = ''
                     }
                 })
                 .catch(err => {

@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CaptchaService } from './captcha.service';
 import { CaptchaController } from './captcha.controller';
+import { ImageGenModule } from 'src/image-gen/image-gen.module';
 
 @Module({
-  providers: [CaptchaService],
-  controllers: [CaptchaController]
+    imports: [ImageGenModule],
+    providers: [CaptchaService],
+    controllers: [CaptchaController]
 })
-export class CaptchaModule {}
+export class CaptchaModule { }
