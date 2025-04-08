@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captcha Example</title>
+</head>
+
+<script>
+    const captchaServerBaseUrl = "http://localhost:3000/api/v1"
+    var captchaId = "";
+
+    function refreshCaptcha() {
+        console.log('Refreshing captcha')
+        fetch(`${captchaServerBaseUrl}/captcha/generate`, { method: 'POST', body: JSON.stringify({ category: 'image' }), headers: { 'Content-Type': 'application/json' } })
+            .then(res => res.json())
+            .then(data => {
+                const elem = document.getElementById('captcha-image-challenge')
+                elem.src = data.image
+                elem.style.width = `${data.width}px`
+                elem.style.height = `${data.height}px`
+                captchaId = data.id
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+    window.onload = () => {
+        refreshCaptcha()
+        document.getElementById('exampleForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const sol = formData.get('solution');
+            fetch('/captchaverify', { method: 'POST', body: JSON.stringify({ solution: sol, captchaId: captchaId }), headers: { 'Content-Type': 'application/json' } })
+                .then(res => res.json())
+                .then(data => {
+                    const elem = document.getElementById('status')
+                    if (data.verification === 'success') {
+                        elem.textContent = 'Captcha Verification success'
+                        elem.style.color = 'green'
+                        refreshCaptcha();
+                    } else {
+                        elem.textContent = 'Invalid captcha'
+                        elem.style.color = 'red'
+                        refreshCaptcha();
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    refreshCaptcha();
+                })
+        });
+    }
+</script>
+
+<body>
+    <h1>Captcha Example</h1>
+    <img href="" alt="Captcha loading" id="captcha-image-challenge" />
+    <button onclick="refreshCaptcha()">Refresh</button>
+    <p id="status">Status</p>
+    <form id="exampleForm">
+        <label for="solution">Enter text:</label>
+        <input type="text" id="solution" name="solution" required>
+        <button type="submit">Verify</button>
+    </form>
+</body>
+
+
+</html>

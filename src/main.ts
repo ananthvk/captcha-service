@@ -10,6 +10,7 @@ async function bootstrap() {
         defaultVersion: '1',
         prefix: 'api/v'
     })
+    app.enableCors()
 
     const config = new DocumentBuilder()
         .setTitle('Captcha service')
