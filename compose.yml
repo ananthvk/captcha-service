@@ -1,15 +1,18 @@
 services:
   captcha-backend-service:
     build:
-      context: .
+        context: .
     restart: always
     ports:
-      - 127.0.0.1:3000:3000
+        - 127.0.0.1:3000:3000
     command: npm run start:dev
     networks:
-      - captcha-net
+        - captcha-net
+    volumes:
+        - ./src/:/app/src/
+        - /app/node_modules
 
 networks:
-  captcha-net:
-    driver: bridge
+    captcha-net:
+        driver: bridge
 

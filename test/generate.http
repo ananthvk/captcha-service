@@ -1,0 +1,18 @@
+@apiURL = http://localhost:3000/api/v1/captcha
+
+### Check captcha generation
+POST {{apiURL}}/generate
+Content-Type: application/json
+
+{
+    "category": "image"
+}
+
+### Verify captcha solution
+POST {{apiURL}}/verify
+Content-Type: application/json
+
+{
+    "id": "9f93f89a-26ec-4a67-928a-3a61c5ce77a6",
+    "solution": "hello there"
+}
