@@ -31,24 +31,28 @@ export class CaptchaController {
     async generate(@Body(ValidationPipe) generateCaptchaDto: GenerateCaptchaDto): Promise<GenerateCaptchaResponseDto> {
         if (generateCaptchaDto.category === 'audio')
             throw new NotImplementedException('Audio captchas are not yet implemented')
-        if (generateCaptchaDto.category === 'image')
+        if (generateCaptchaDto.category === 'image') {
+            const captcha = await this.captchaService.generateImageCaptcha()
             return {
-                id: '9f93f89a-26ec-4a67-928a-3a61c5ce77a6',
-                category: 'image',
-                image: await this.captchaService.generateCaptcha(),
-                width: 200,
-                height: 100,
+                width: captcha.image.width,
+                height: captcha.image.height,
+                image: captcha.image.image,
+                id: captcha.id,
+                category: 'image'
             }
+        }
     }
 
     @Post('verify')
     @ApiOperation({ summary: 'Verifies if the captcha solution is valid, to be called on the server', description: 'Verifies if the captcha id provided and the solution matches. This route should be called on the server to validate the captcha.' })
     async verify(@Body(ValidationPipe) verifyCaptchaDto: VerifyCaptchaDto): Promise<VerifyCaptchaResponse> {
-        if (verifyCaptchaDto.solution === "hello")
+        const isCaptchaValid = await this.captchaService.verifyCaptcha(verifyCaptchaDto.id, verifyCaptchaDto.solution)
+        if (isCaptchaValid)
             return {
                 status: "success"
             }
         else
+            // TODO: Later, return the exact error that caused the verification to fail
             return {
                 status: "error",
                 errors: ["Invalid solution"]

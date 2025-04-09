@@ -8,7 +8,6 @@ app.use(express.static('public'))
 app.use(express.json());
 
 app.post('/captchaverify', (req, res) => {
-    console.log(req.body)
     if (req.body && req.body.solution && req.body.captchaId) {
         // Verify with backend server
         // Two responses - success, failure
@@ -16,15 +15,21 @@ app.post('/captchaverify', (req, res) => {
         const solution = req.body.solution
         const captchaId = req.body.captchaId
 
+        console.log(`Verifying ${captchaId} with solution ${solution}`)
+
         fetch(`${captchaServerBaseUrl}/captcha/verify`, { method: 'POST', body: JSON.stringify({ solution: solution, id: captchaId }), headers: { 'Content-Type': 'application/json' } })
             .then(res => res.json())
             .then(data => {
-                if (data.error || (data.status && data.status === 'error'))
+                if (data.error || (data.status && data.status === 'error')) {
+                    console.log(`${captchaId} is invalid`)
                     res.send({ verification: 'failure' })
+                }
                 else if (data.status && data.status === 'success') {
+                    console.log(`${captchaId} is valid`)
                     res.send({ verification: 'success' })
                 }
                 else {
+                    console.log(`${captchaId} is invalid`)
                     res.send({ verification: 'failure' })
                 }
             })
@@ -34,6 +39,7 @@ app.post('/captchaverify', (req, res) => {
             })
 
     } else {
+        console.log('Bad request')
         res.send({ verification: 'failure' })
     }
 })
