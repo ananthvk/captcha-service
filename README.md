@@ -30,6 +30,10 @@ $ npm run start
 To view the docs, visit [http://localhost:3000/docs](http://localhost:3000/docs)
 
 
+A screenshot of the example site to show how the generated captcha looks
+
+![A screenshot of the example site](images/example.png)
+
 # Requirements
 
 ## Functional Requirements
