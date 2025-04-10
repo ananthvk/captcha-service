@@ -55,7 +55,7 @@ export class CaptchaController {
             // TODO: Later, return the exact error that caused the verification to fail
             return {
                 status: "error",
-                errors: ["Invalid solution"]
+                errors: ["invalid_solution"]
             }
     }
 }
