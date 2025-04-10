@@ -80,7 +80,7 @@ export class ImageGenService {
         */
 
         this.ctx.fillStyle = "#1a002e";
-        this.ctx.globalAlpha = 0.75
+        this.ctx.globalAlpha = 0.50
 
         for (let i = 0; i < 10; i++) {
             const startX = randInt(0, this.canvasWidth / 2)
@@ -100,8 +100,8 @@ export class ImageGenService {
             this.ctx.moveTo(startX, startY);
 
             this.ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
-            this.ctx.lineWidth = 1
-            this.ctx.setLineDash([randInt(0, 5), randInt(5, 10), randInt(10, 15)])
+            this.ctx.lineWidth = 2
+            this.ctx.setLineDash([randInt(1, 3), randInt(3, 6), randInt(6, 9)])
             this.ctx.stroke()
             this.ctx.restore()
         }
