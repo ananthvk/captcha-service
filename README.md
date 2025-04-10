@@ -34,6 +34,8 @@ A screenshot of the example site to show how the generated captcha looks
 
 ![A screenshot of the example site](images/example.png)
 
+Note: Storing captcha id/solution to redis has not yet been implemented, for now all captchas are stored in memory (in a Map), so this can cause memory overflow if the captchas are not deleted
+
 # Requirements
 
 ## Functional Requirements
