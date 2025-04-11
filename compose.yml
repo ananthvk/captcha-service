@@ -9,7 +9,7 @@ services:
     networks:
         - captcha-net
     volumes:
-        - ./:./
+        - ./:/app
         - /app/node_modules
 
 networks:

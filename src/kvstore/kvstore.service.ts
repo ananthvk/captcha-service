@@ -51,7 +51,7 @@ export class KvstoreService {
         if (!value)
             return undefined;
 
-        if (Date.now() > value.expiry) {
+        if (value.expiry > 0 && Date.now() > value.expiry) {
             this.delete(key)
             return undefined
         }
