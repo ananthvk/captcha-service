@@ -20,11 +20,11 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^11.0.13",
-    "@nestjs/config": "^4.0.2",
+    "@nestjs/common": "^11.1.17",
+    "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.0.13",
-    "@nestjs/platform-express": "^11.0.13",
-    "@nestjs/swagger": "^11.1.1",
+    "@nestjs/platform-express": "^11.1.17",
+    "@nestjs/swagger": "^11.2.6",
     "canvas": "^3.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
@@ -33,7 +33,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.0",
+    "@nestjs/cli": "^11.0.16",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^11.0.16",
     "@types/express": "^5.0.0",
